@@ -5,14 +5,14 @@ import apiClient from '../utils/apiClient'
 export const useGetVideos = (params?: any) => {
   return useQuery({
     queryKey: ['videos', params],
-    queryFn: () => apiClient.get('/videos', { params }).then((res) => res.data),
+    queryFn: () => apiClient.get('/videos', { params }).then((res) => res.data?.data),
   })
 }
 
 export const useGetVideoById = (videoId: string) => {
   return useQuery({
     queryKey: ['video', videoId],
-    queryFn: () => apiClient.get(`/videos/${videoId}`).then((res) => res.data),
+    queryFn: () => apiClient.get(`/videos/${videoId}`).then((res) => res.data?.data),
     enabled: !!videoId,
   })
 }
@@ -55,7 +55,7 @@ export const useLogoutUser = () => {
 export const useGetCurrentUser = () => {
   return useQuery({
     queryKey: ['currentUser'],
-    queryFn: () => apiClient.get('/users/get-current-user').then((res) => res.data),
+    queryFn: () => apiClient.get('/users/get-current-user').then((res) => res.data?.data),
   })
 }
 
@@ -63,7 +63,7 @@ export const useGetCurrentUser = () => {
 export const useGetComments = (videoId: string) => {
   return useQuery({
     queryKey: ['comments', videoId],
-    queryFn: () => apiClient.get(`/comment/${videoId}`).then((res) => res.data),
+    queryFn: () => apiClient.get(`/comment/${videoId}`).then((res) => res.data?.data),
     enabled: !!videoId,
   })
 }
@@ -106,7 +106,7 @@ export const useSubscribe = () => {
 export const useGetSubscriberCount = (channelId: string) => {
   return useQuery({
     queryKey: ['subscriberCount', channelId],
-    queryFn: () => apiClient.get(`/subscriptions/${channelId}`).then((res) => res.data),
+    queryFn: () => apiClient.get(`/subscriptions/${channelId}`).then((res) => res.data?.data),
     enabled: !!channelId,
   })
 }
