@@ -26,17 +26,22 @@ export default function Sidebar() {
     <aside
       className={`${
         isSidebarOpen ? 'w-64' : 'w-10'
-      } bg-transparent p-4 hidden md:block backdrop-blur transition-all duration-300`}
+      } bg-transparent p-4 hidden md:block backdrop-blur transition-all duration-300 border-r border-opacity-10 h-screen overflow-y-auto`}
       aria-label="Navigation sidebar"
     >
       <div className="space-y-4">
-        <button
-          onClick={toggleSidebar}
-          aria-label={isSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
-          className="p-1 rounded hover:bg-gray-800 transition-colors"
-        >
-          <Menu className="w-6 h-6 mb-6" />
-        </button>
+        <div className="flex items-center gap-3 mb-6">
+          <button
+            onClick={toggleSidebar}
+            aria-label={isSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
+            className="p-1 rounded hover:bg-gray-800 transition-colors hover:cursor-pointer"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+          <span className='font-bold text-lg text-red-500'>
+            TubeLite
+          </span>
+        </div>
 
         {navLinks.map((link) => (
           <Link
@@ -46,7 +51,7 @@ export default function Sidebar() {
           >
             {link.icon}
             <span className={`overflow-hidden whitespace-nowrap ${isSidebarOpen ? 'w-auto' : 'w-0'}`}>
-              {link.label}
+              <span className="">{link.label}</span>
             </span>
           </Link>
         ))}
