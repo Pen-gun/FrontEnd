@@ -1,27 +1,56 @@
-import { Link } from 'react-router-dom'
-import { HomeIcon, Folder, Text, WatchIcon} from 'lucide-react'
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { HomeIcon, Folder, Text, WatchIcon, Menu } from 'lucide-react';
+
+interface NavLink {
+  to: string;
+  icon: React.ReactNode;
+  label: string;
+}
 
 export default function Sidebar() {
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarOpen((prev) => !prev);
+  };
+
+  const navLinks: NavLink[] = [
+    { to: '/', icon: <HomeIcon className="w-6 h-6" />, label: 'Home' },
+    { to: '/playlists', icon: <Folder className="w-6 h-6" />, label: 'Playlists' },
+    { to: '/tweets', icon: <Text className="w-6 h-6" />, label: 'Tweets' },
+    { to: '/watch-history', icon: <WatchIcon className="w-6 h-6" />, label: 'Watch History' },
+  ];
+
   return (
-    <aside className="w-64 bg-gray-900/80 border-r border-gray-800 p-4 hidden md:block backdrop-blur">
+    <aside
+      className={`${
+        isSidebarOpen ? 'w-64' : 'w-10'
+      } bg-transparent p-4 hidden md:block backdrop-blur transition-all duration-300`}
+      aria-label="Navigation sidebar"
+    >
       <div className="space-y-4">
-        <Link to="/" className="flex items-center gap-3 p-3 rounded hover:bg-gray-800">
-          <HomeIcon className="w-6 h-6" />
-          <span>Home</span>
-        </Link>
-        <Link to="/playlists" className="flex items-center gap-3 p-3 rounded hover:bg-gray-800">
-          <Folder className="w-6 h-6" />
-          <span>Playlists</span>
-        </Link>
-        <Link to="/tweets" className="flex items-center gap-3 p-3 rounded hover:bg-gray-800">
-          <Text className="w-6 h-6" />
-          <span>Tweets</span>
-        </Link>
-        <Link to="/watch-history" className="flex items-center gap-3 p-3 rounded hover:bg-gray-800">
-          <WatchIcon className="w-6 h-6" />
-          <span>Watch History</span>
-        </Link>
+        <button
+          onClick={toggleSidebar}
+          aria-label={isSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
+          className="p-1 rounded hover:bg-gray-800 transition-colors"
+        >
+          <Menu className="w-6 h-6 mb-6" />
+        </button>
+
+        {navLinks.map((link) => (
+          <Link
+            key={link.to}
+            to={link.to}
+            className="flex items-center gap-3 p-3 rounded transition-colors hover:bg-gray-800 active:bg-gray-700"
+          >
+            {link.icon}
+            <span className={`overflow-hidden whitespace-nowrap ${isSidebarOpen ? 'w-auto' : 'w-0'}`}>
+              {link.label}
+            </span>
+          </Link>
+        ))}
       </div>
     </aside>
-  )
+  );
 }
