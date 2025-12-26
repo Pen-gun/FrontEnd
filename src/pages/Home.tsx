@@ -28,23 +28,44 @@ export default function Home() {
     setParams(next)
   }
 
+  const categories = [
+    'All',
+    'Music',
+    'Gaming',
+    'News',
+    'Live',
+    'Sports',
+    'Podcasts',
+    'Comedy',
+    'Technology',
+    'Education',
+  ]
+
+  const setCategory = (cat: string) => {
+    const next = new URLSearchParams(params)
+    next.set('query', cat === 'All' ? '' : cat)
+    setParams(next)
+  }
+
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex flex-wrap items-center gap-4">
-        <h1 className="text-3xl font-bold">Explore</h1>
-        <div className="flex items-center gap-2 text-sm">
-          <button
-            onClick={() => updateSort('createdAt', 'desc')}
-            className="px-3 py-1 rounded bg-gray-800 border border-gray-700 hover:border-red-500"
-          >
-            Newest
-          </button>
-          <button
-            onClick={() => updateSort('views', 'desc')}
-            className="px-3 py-1 rounded bg-gray-800 border border-gray-700 hover:border-red-500"
-          >
-            Top views
-          </button>
+    <div className="p-4 sm:p-6 space-y-6">
+      {/* Category chips */}
+      <div className="sticky top-[56px] z-10 bg-stone-950/80 backdrop-blur px-1 -mx-1">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-2">
+          {categories.map((cat) => {
+            const active = (params.get('query') || 'All') === cat || (cat === 'All' && !params.get('query'))
+            return (
+              <button
+                key={cat}
+                onClick={() => setCategory(cat)}
+                className={`px-3 py-1.5 rounded-full whitespace-nowrap border ${
+                  active ? 'bg-amber-500 text-black border-amber-500' : 'bg-stone-800 text-white border-stone-700 hover:border-stone-500'
+                }`}
+              >
+                {cat}
+              </button>
+            )
+          })}
         </div>
       </div>
 
@@ -57,14 +78,14 @@ export default function Home() {
         <button
           onClick={() => setPage((p) => Math.max(1, p - 1))}
           disabled={page === 1}
-          className="px-3 py-1 rounded bg-gray-800 border border-gray-700 disabled:opacity-50"
+          className="px-3 py-1 rounded bg-stone-800 border border-stone-700 disabled:opacity-50"
         >
           Previous
         </button>
         <div className="text-sm text-gray-400">Page {page}</div>
         <button
           onClick={() => setPage((p) => p + 1)}
-          className="px-3 py-1 rounded bg-gray-800 border border-gray-700"
+          className="px-3 py-1 rounded bg-stone-800 border border-stone-700"
         >
           Next
         </button>

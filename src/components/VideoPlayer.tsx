@@ -14,7 +14,7 @@ export default function VideoPlayer({ video }: { video?: VideoSource }) {
       ) : (
         <div className="h-64 grid place-items-center text-gray-500">No video source</div>
       )}
-      {video.title && <div className="p-3 font-semibold text-lg bg-gray-900">{video.title}</div>}
+      {video.title && <div className="p-3 font-semibold text-lg bg-stone-900">{video.title}</div>}
     </div>
   )
 }
