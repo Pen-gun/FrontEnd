@@ -6,11 +6,11 @@ import Sidebar from './Sidebar'
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   return (
-    <div className="flex h-screen bg-stone-950 text-white">
-      <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen((v) => !v)} />
-      <div className="flex-1 flex flex-col">
+    <div className="flex h-screen text-white" style={{ backgroundColor: 'var(--yt-spec-base-background)' }}>
+      <Sidebar isOpen={sidebarOpen} />
+      <div className="flex-1 flex flex-col overflow-hidden">
         <Navbar onToggleSidebar={() => setSidebarOpen((v) => !v)} />
-        <main className="flex-1 overflow-auto">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden">
           <Outlet />
         </main>
       </div>

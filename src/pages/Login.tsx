@@ -13,8 +13,8 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen grid place-items-center bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white">
-      <div className="w-full max-w-md bg-gray-900/80 border border-gray-800 rounded-xl p-8 space-y-6">
+    <div className="min-h-screen grid place-items-center text-white" style={{ backgroundColor: 'var(--yt-spec-base-background)' }}>
+      <div className="w-full max-w-md rounded-xl p-8 space-y-6" style={{ backgroundColor: 'var(--yt-spec-general-background-a)', border: '1px solid var(--yt-spec-outline)' }}>
         <div>
           <h1 className="text-2xl font-bold">Welcome back</h1>
           <p className="text-sm text-gray-400">Sign in to continue</p>
@@ -27,7 +27,8 @@ export default function Login() {
               required
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2"
+              className="w-full rounded px-3 py-2 text-white"
+              style={{ backgroundColor: 'var(--yt-spec-general-background-b)', border: '1px solid var(--yt-spec-outline)' }}
             />
           </div>
           <div className="space-y-2">
@@ -44,13 +45,14 @@ export default function Login() {
           <button
             type="submit"
             disabled={loginStatus === 'pending'}
-            className="w-full bg-red-600 hover:bg-red-700 disabled:opacity-60 rounded px-4 py-2 font-semibold"
+            className="w-full disabled:opacity-60 rounded-full px-4 py-2.5 font-semibold"
+            style={{ backgroundColor: 'var(--yt-spec-call-to-action)' }}
           >
             {loginStatus === 'pending' ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
         <p className="text-sm text-gray-400">
-          No account? <Link to="/register" className="text-red-400 hover:underline">Create one</Link>
+          No account? <Link to="/register" style={{ color: '#3ea6ff' }} className="hover:underline">Create one</Link>
         </p>
       </div>
     </div>
